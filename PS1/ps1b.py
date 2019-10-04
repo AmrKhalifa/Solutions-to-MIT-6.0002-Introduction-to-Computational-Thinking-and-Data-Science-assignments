@@ -23,6 +23,29 @@ def dp_make_weight(egg_weights, target_weight, memo = {}):
     Returns: int, smallest number of eggs needed to make target weight
     """
     # TODO: Your code here
+    sorted_egg_weights = sorted(egg_weights, reverse = True )
+
+    
+    solutions_array = []
+
+    for i in range(target_weight+1):
+        solutions_array.append(target_weight+1)
+
+   
+    solutions_array[0] = 0
+
+    for i in range(1, len(solutions_array)):
+        for egg in sorted_egg_weights: 
+            if solutions_array[i] - egg <0:
+                continue
+            else:
+                solutions_array[i] = min (1+ solutions_array[i-egg], solutions_array[i])
+                continue
+
+   
+
+    return(solutions_array[-1])
+
     pass
 
 # EXAMPLE TESTING CODE, feel free to add more if you'd like
