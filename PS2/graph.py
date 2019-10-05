@@ -100,9 +100,9 @@ class Digraph(object):
         if self.has_node(node):
             raise ValueError('Duplicate Node')
         else:
-            self.edges[node] = []
-            self.nodes.add(node)
-        pass  # TODO
+        	self.nodes.add(node)
+        	self.edges[node] = []
+        pass
 
     def add_edge(self, edge):
         """Adds an Edge or WeightedEdge instance to the Digraph. Raises a
