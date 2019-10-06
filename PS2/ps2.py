@@ -79,39 +79,7 @@ print(load_map('test_load_map.txt'))
 # Problem 3b: Implement get_best_path
 def get_best_path(digraph, start, end, path, max_dist_outdoors, best_dist,
                   best_path):
-    """
-    Finds the shortest path between buildings subject to constraints.
 
-    Parameters:
-        digraph: Digraph instance
-            The graph on which to carry out the search
-        start: string
-            Building number at which to start
-        end: string
-            Building number at which to end
-        path: list composed of [[list of strings], int, int]
-            Represents the current path of nodes being traversed. Contains
-            a list of node names, total distance traveled, and total
-            distance outdoors.
-        max_dist_outdoors: int
-            Maximum distance spent outdoors on a path
-        best_dist: int
-            The smallest distance between the original start and end node
-            for the initial problem that you are trying to solve
-        best_path: list of strings
-            The shortest path found so far between the original start
-            and end node.
-
-    Returns:
-        A tuple with the shortest-path from start to end, represented by
-        a list of building numbers (in strings), [n_1, n_2, ..., n_k],
-        where there exists an edge from n_i to n_(i+1) in digraph,
-        for all 1 <= i < k and the distance of that path.
-
-        If there exists no path that satisfies max_total_dist and
-        max_dist_outdoors constraints, then return None.
-    """
-    # TODO
     pass
 
 
@@ -156,8 +124,6 @@ def directed_dfs(digraph, start, end, max_total_dist, max_dist_outdoors):
             # If current vertex is same as destination, then print 
             # current path[] 
             if u[0] == d : 
-                #print("found node")
-                #print (path)
                 paths.append(list(path))
             else: 
                 # If current vertex is not destination 
@@ -169,11 +135,10 @@ def directed_dfs(digraph, start, end, max_total_dist, max_dist_outdoors):
             # Remove current vertex from path[] and mark it as unvisited 
             path.pop() 
             visited.remove(u[0]) 
-        # Prints all paths from 's' to 'd' 
+        
     def printAllPaths(graph, s, d): 
 
         # Mark all the vertices as not visited 
-        #visited =[False]*(V) 
         visited = set([])
         # Create an array to store paths 
         paths = []
