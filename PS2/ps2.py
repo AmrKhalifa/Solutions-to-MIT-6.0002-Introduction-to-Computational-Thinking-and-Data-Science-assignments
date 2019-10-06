@@ -50,8 +50,6 @@ def load_map(map_filename):
         for line in f.readlines():
             line = line.split("\n")
             edge_info = line[0].split(" ")
-            
-
             source_node = Node(edge_info[0])
             destin_node = Node(edge_info[1])
             edge = WeightedEdge(source_node, destin_node, int(edge_info[2]), int(edge_info[3]))
@@ -147,6 +145,85 @@ def directed_dfs(digraph, start, end, max_total_dist, max_dist_outdoors):
         max_dist_outdoors constraints, then raises a ValueError.
     """
     # TODO
+
+    def printAllPathsUtil(graph, u, d, visited, path, paths): 
+      
+            # Mark the current node as visited and store in path 
+            #visited[u]= True
+            visited.add(u[0])
+            path.append(u) 
+      
+            # If current vertex is same as destination, then print 
+            # current path[] 
+            if u[0] == d : 
+                #print("found node")
+                #print (path)
+                paths.append(list(path))
+            else: 
+                # If current vertex is not destination 
+                #Recur for all the vertices adjacent to this vertex
+                #print("node not found, recuring ...")
+                for i in graph.edges[u[0]]:
+                    if not i.dest in visited:
+                        printAllPathsUtil(graph, (i.dest, i), d, visited, path, paths)
+            # Remove current vertex from path[] and mark it as unvisited 
+            path.pop() 
+            visited.remove(u[0]) 
+        # Prints all paths from 's' to 'd' 
+    def printAllPaths(graph, s, d): 
+
+        # Mark all the vertices as not visited 
+        #visited =[False]*(V) 
+        visited = set([])
+        # Create an array to store paths 
+        paths = []
+        path = []
+        x = 0
+        # Call the recursive helper function to print all paths
+        printAllPathsUtil(graph, (Node(s), x), Node(d), visited, path, paths)
+
+        return paths
+
+    def calcualte_path_total_dist(path):
+
+        total_dist = 0
+        for edge in path[1:]:
+            total_dist += edge[1].get_total_distance()
+
+        return total_dist
+
+
+        pass
+
+    def calculate_path_outdoor_dist(path):
+        total_out_dist = 0
+        for edge in path[1:]:
+            total_out_dist += edge[1].get_outdoor_distance()
+        return total_out_dist
+        pass
+
+    paths = printAllPaths(digraph, start, end)
+    
+    full_path_info = []
+
+    for path in paths:
+        full_path_info.append((path, calcualte_path_total_dist(path), calculate_path_outdoor_dist(path)))
+
+    def get_best_path_from_sorted(paths, max_dist, max_outdoor_dist):
+
+        paths = sorted(paths, key = lambda x: x[1])
+        for path in paths:
+            if path[1] <= max_dist and path[2] <= max_outdoor_dist:
+                return list([str(x[0]) for x in path[0]])
+            else:
+                continue
+
+        raise ValueError 
+
+
+
+    return (get_best_path_from_sorted(full_path_info, max_total_dist, max_dist_outdoors))
+    
     pass
 
 
@@ -235,5 +312,5 @@ class Ps2Test(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    #unittest.main()
+    unittest.main()
     pass 
