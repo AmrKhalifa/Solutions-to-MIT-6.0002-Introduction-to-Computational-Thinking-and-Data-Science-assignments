@@ -64,8 +64,7 @@ def load_map(map_filename):
 
 # Problem 2c: Testing load_map
 # Include the lines used to test load_map below, but comment them out
-
-print(load_map('test_load_map.txt'))
+#print(load_map('test_load_map.txt'))
 #
 # Problem 3: Finding the Shorest Path using Optimized Search Method
 #
@@ -120,7 +119,6 @@ def directed_dfs(digraph, start, end, max_total_dist, max_dist_outdoors):
             #visited[u]= True
             visited.add(u[0])
             path.append(u) 
-      
             # If current vertex is same as destination, then print 
             # current path[] 
             if u[0] == d : 
@@ -154,21 +152,17 @@ def directed_dfs(digraph, start, end, max_total_dist, max_dist_outdoors):
         total_dist = 0
         for edge in path[1:]:
             total_dist += edge[1].get_total_distance()
-
         return total_dist
 
-
-        pass
 
     def calculate_path_outdoor_dist(path):
         total_out_dist = 0
         for edge in path[1:]:
             total_out_dist += edge[1].get_outdoor_distance()
         return total_out_dist
-        pass
+       
 
     paths = printAllPaths(digraph, start, end)
-    
     full_path_info = []
 
     for path in paths:
@@ -185,11 +179,7 @@ def directed_dfs(digraph, start, end, max_total_dist, max_dist_outdoors):
 
         raise ValueError 
 
-
-
     return (get_best_path_from_sorted(full_path_info, max_total_dist, max_dist_outdoors))
-    
-    pass
 
 
 # ================================================================
