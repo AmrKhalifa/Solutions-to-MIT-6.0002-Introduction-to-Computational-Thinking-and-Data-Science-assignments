@@ -134,11 +134,8 @@ class RectangularRoom(object):
         Note: The tile is considered clean only when the amount of dirt on this
               tile is 0.
         """
-        if self.room[self.height-n-1][m] == 0:
-        	return True
-        else:
-        	return False 
-
+        return self.room[self.height-n-1][m] == 0
+   
         #raise NotImplementedError
 
     def get_num_cleaned_tiles(self):
@@ -160,13 +157,11 @@ class RectangularRoom(object):
         pos: a Position object.
         Returns: True if pos is in the room, False otherwise.
         """
-        x = (pos.get_x())
-        y = (pos.get_y())
+        x = math.floor(pos.get_x())
+        y = math.floor(pos.get_y())
 
-        if x < self.width and x >= 0 and y < self.height and y >= 0 :
-            return True
+        return x < self.width and x >= 0 and y < self.height and y >= 0 
 
-        return False
         #raise NotImplementedError
         
     def get_dirt_amount(self, m, n):
@@ -230,20 +225,28 @@ class Robot(object):
         capacity: a positive interger; the amount of dirt cleaned by the robot 
                   in a single time-step
         """
-        raise NotImplementedError
+        self.room = room
+        self.speed = speed
+        self.capacity = capacity
+        self.position = self.room.get_random_position()
+        self.direction = random.uniform(0.0, 360)
+
+        #raise NotImplementedError
 
     def get_robot_position(self):
         """
         Returns: a Position object giving the robot's position in the room.
         """
-        raise NotImplementedError
+        return self.position
+        #raise NotImplementedError
 
     def get_robot_direction(self):
         """
         Returns: a float d giving the direction of the robot as an angle in
         degrees, 0.0 <= d < 360.0.
         """
-        raise NotImplementedError
+        return self.direction
+        #raise NotImplementedError
 
     def set_robot_position(self, position):
         """
@@ -251,7 +254,8 @@ class Robot(object):
 
         position: a Position object.
         """
-        raise NotImplementedError
+        self.position = position
+        #raise NotImplementedError
 
     def set_robot_direction(self, direction):
         """
@@ -259,7 +263,8 @@ class Robot(object):
 
         direction: float representing an angle in degrees
         """
-        raise NotImplementedError
+        self.direction = direction
+        #raise NotImplementedError
 
     def update_position_and_clean(self):
         """
