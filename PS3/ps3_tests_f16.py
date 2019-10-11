@@ -590,7 +590,7 @@ if __name__ == "__main__":
     suite.addTest(unittest.makeSuite(ps3_P1A))
     suite.addTest(unittest.makeSuite(ps3_P1B))
     suite.addTest(unittest.makeSuite(ps3_P2_ER))
-    # suite.addTest(unittest.makeSuite(ps3_P2_FR))
+    suite.addTest(unittest.makeSuite(ps3_P2_FR))
     # suite.addTest(unittest.makeSuite(ps3_P3))
     # suite.addTest(unittest.makeSuite(ps3_P5_Standard))
     # suite.addTest(unittest.makeSuite(ps3_P5_Faulty))
