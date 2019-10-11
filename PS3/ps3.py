@@ -184,7 +184,8 @@ class RectangularRoom(object):
         Returns: an integer; the total number of tiles in the room
         """
         # do not change -- implement in subclasses.
-        raise NotImplementedError 
+        raise NotImplementedError
+        
         
     def is_position_valid(self, pos):
         """
@@ -194,14 +195,16 @@ class RectangularRoom(object):
                  if position is unfurnished, False otherwise.
         """
         # do not change -- implement in subclasses
-        raise NotImplementedError         
+        raise NotImplementedError
+                
 
     def get_random_position(self):
         """
         Returns: a Position object; a random position inside the room
         """
         # do not change -- implement in subclasses
-        raise NotImplementedError        
+        raise NotImplementedError
+              
 
 
 class Robot(object):
@@ -286,7 +289,8 @@ class EmptyRoom(RectangularRoom):
         """
         Returns: an integer; the total number of tiles in the room
         """
-        raise NotImplementedError
+        return self.width * self.height
+        #raise NotImplementedError
         
     def is_position_valid(self, pos):
         """
@@ -294,13 +298,15 @@ class EmptyRoom(RectangularRoom):
         
         Returns: True if pos is in the room, False otherwise.
         """
-        raise NotImplementedError
+        return super().is_position_in_room(pos)
+        #raise NotImplementedError
         
     def get_random_position(self):
         """
         Returns: a Position object; a valid random position (inside the room).
         """
-        raise NotImplementedError
+        return Position(random.uniform(0, self.width), random.uniform(0, self.height))
+        #raise NotImplementedError
 
 class FurnishedRoom(RectangularRoom):
     """
