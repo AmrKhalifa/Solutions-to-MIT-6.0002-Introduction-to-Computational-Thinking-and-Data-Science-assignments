@@ -494,14 +494,36 @@ def run_simulation(num_robots, speed, capacity, width, height, dirt_amount, min_
     robot_type: class of robot to be instantiated (e.g. StandardRobot or
                 FaultyRobot)
     """
-    raise NotImplementedError
+    trials_clock_ticks = []
+    
+    def clock_tick(robots):
+	    for robot in robots:
+		    robot.update_position_and_clean()
+
+    for i in range (num_trials):
+
+	    robots = []
+	    room = EmptyRoom(width, height, dirt_amount)
+	    for i in range (num_robots):
+	    	robot = robot_type(room, speed, capacity)
+	    	robots.append(robot)
+
+	    clock_ticks_per_trial = 0
+	    while room.get_num_cleaned_tiles() < min_coverage*room.get_num_tiles():
+		    clock_tick(robots)
+		    clock_ticks_per_trial += 1
+	    
+	    trials_clock_ticks.append(clock_ticks_per_trial)
+
+    return sum(trials_clock_ticks)/len(trials_clock_ticks)
+    #raise NotImplementedError
 
 
-# print ('avg time steps: ' + str(run_simulation(1, 1.0, 1, 5, 5, 3, 1.0, 50, StandardRobot)))
-# print ('avg time steps: ' + str(run_simulation(1, 1.0, 1, 10, 10, 3, 0.8, 50, StandardRobot)))
-# print ('avg time steps: ' + str(run_simulation(1, 1.0, 1, 10, 10, 3, 0.9, 50, StandardRobot)))
-# print ('avg time steps: ' + str(run_simulation(1, 1.0, 1, 20, 20, 3, 0.5, 50, StandardRobot)))
-# print ('avg time steps: ' + str(run_simulation(3, 1.0, 1, 20, 20, 3, 0.5, 50, StandardRobot)))
+print ('avg time steps: ' + str(run_simulation(1, 1.0, 1, 5, 5, 3, 1.0, 50, StandardRobot)))
+#print ('avg time steps: ' + str(run_simulation(1, 1.0, 1, 10, 10, 3, 0.8, 50, StandardRobot)))
+#print ('avg time steps: ' + str(run_simulation(1, 1.0, 1, 10, 10, 3, 0.9, 50, StandardRobot)))
+#print ('avg time steps: ' + str(run_simulation(1, 1.0, 1, 20, 20, 3, 0.5, 50, StandardRobot)))
+#print ('avg time steps: ' + str(run_simulation(3, 1.0, 1, 20, 20, 3, 0.5, 50, StandardRobot)))
 
 # === Problem 6
 #
