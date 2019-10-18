@@ -271,13 +271,13 @@ def simulation_without_antibiotic(num_bacteria,
     	for k in range (300):
     		populations[i].append(patient.update())
 
-    make_one_curve_plot([k for k in range(300)], [calc_pop_avg(populations, n) for n in range (len(populations[0]))], 'time_steps', 'average_population', 'without antibiotic')
     return populations
     pass  # TODO
 
 
 # When you are ready to run the simulation, uncomment the next line
-populations = simulation_without_antibiotic(100, 1000, 0.1, 0.025, 50)
+#populations = simulation_without_antibiotic(100, 1000, 0.1, 0.025, 50)
+#make_one_curve_plot([k for k in range(300)], [calc_pop_avg(populations, n) for n in range (len(populations[0]))], 'time_steps', 'average_population', 'without antibiotic')
 
 ##########################
 # PROBLEM 3
@@ -304,6 +304,11 @@ def calc_pop_std(populations, t):
         float: the standard deviation of populations across different trials at
              a specific time step
     """
+    mean = calc_pop_avg(populations, t)
+    time_step_info = [trial[t] for trial in populations]
+    squared_diffs = [(trial-mean)**2 for trial in time_step_info]
+
+    return (sum(squared_diffs)/len(squared_diffs))**.5
     pass  # TODO
 
 
@@ -328,6 +333,7 @@ def calc_95_ci(populations, t):
 
         I.e., you should return a tuple containing (mean, width)
     """
+    return (calc_pop_avg(populations, t), 1.96*calc_pop_std(populations, t)/(len(populations))**.5 )
     pass  # TODO
 
 
