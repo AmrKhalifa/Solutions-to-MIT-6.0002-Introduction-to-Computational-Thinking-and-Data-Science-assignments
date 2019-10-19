@@ -524,10 +524,9 @@ class TreatedPatient(Patient):
             	new_bacteria.append(bact.reproduce(density))
             except:
             	continue 
-        
+       
         self.bacteria = new_bacteria
         return len(self.bacteria)
-
         pass  # TODO
 
 
@@ -596,7 +595,6 @@ def simulation_with_antibiotic(num_bacteria,
     	for l in range(250):
 	    	total_pop[i].append(patient.update())
 	    	resistant_pop[i].append(patient.get_resist_pop())
-
     return (total_pop, resistant_pop)
     pass  # TODO
 
