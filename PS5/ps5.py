@@ -164,6 +164,11 @@ def generate_models(x, y, degs):
         that minimizes the squared error of the fitting polynomial
     """
     # TODO
+    output = []
+    for d in degs:
+    	output.append(pylab.polyfit(x, y, d))
+
+    return output 
     pass
 
 
@@ -181,6 +186,13 @@ def r_squared(y, estimated):
         a float for the R-squared error term
     """
     # TODO
+    mse = (estimated-y)@(estimated-y)
+    mean = pylab.mean(y)
+    var = (y-mean) @(y-mean)
+
+    r_2 = 1 - mse/var
+
+    return r_2
     pass
 
 def evaluate_models_on_training(x, y, models):
@@ -210,6 +222,21 @@ def evaluate_models_on_training(x, y, models):
         None
     """
     # TODO
+
+    for model in models:
+    	fit = pylab.polyfit(x, y, model)
+    	predictor = pylab.poly1d(fit)
+    	predictions = predictor(x)
+    	pylab.scatter(x, y, color = 'b')
+    	pylab.plot(x, predictions, 'r')
+    	
+    	if model ==1:
+    		pylab.title("Degree: "+str(model)+ ", $R^{2}$ : " + str(r_squared(y, predictions)) + "\n" + str(se_over_slope(x ,y ,predictions, fit)))
+    		pylab.show()
+    	else:
+    		pylab.title("Degree: "+str(model)+ ", $R^{2}$ : " + str(r_squared(y, predictions)))
+
+    	pylab.show()
     pass
 
 def gen_cities_avg(climate, multi_cities, years):
@@ -314,6 +341,25 @@ if __name__ == '__main__':
 
     # Part A.4
     # TODO: replace this line with your code
+    c = Climate("data.csv")
+    day_data = []
+    year_data = []
+    years = []
+
+    for i in range(1961,2010):
+    	years.append(i)
+    	day_data.append(c.get_daily_temp("NEW YORK", 1, 10, i))
+    	year_data.append(c.get_yearly_temp("NEW YORK", i))
+
+   	## Problem 4:I
+    #evaluate_models_on_training(pylab.array(years), pylab.array(day_data), [1,2,3,4])
+	
+	## Problem 4:II
+    #evaluate_models_on_training(pylab.array(years), pylab.array(day_data), [1,2,3,4])
+    year_averages = [] 
+    for year in year_data:
+    	year_averages.append(pylab.mean(year))
+    #evaluate_models_on_training(pylab.array(years), pylab.array(year_averages), [1,2,3,4])
 
     # Part B
     # TODO: replace this line with your code
