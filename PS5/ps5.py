@@ -280,8 +280,17 @@ def moving_average(y, window_length):
         y-coordinates of the N sample points
     """
     # TODO
+    avg = []
+    for i in range (len(y)):
+        if i ==0:
+            avg.append(y[0])
+        elif i < window_length:
+            avg.append(pylab.mean(y[0:i+1]))
+        else: 
+            avg.append(pylab.mean(y[i-window_length+1:i+1]))
 
-    pass
+    return avg
+    
 
 def rmse(y, estimated):
     """
@@ -364,7 +373,6 @@ if __name__ == '__main__':
     #evaluate_models_on_training(pylab.array(years), pylab.array(day_data), [1,2,3,4])
 	
 	## Problem 4:II
-    #evaluate_models_on_training(pylab.array(years), pylab.array(day_data), [1,2,3,4])
     year_averages = [] 
     for year in year_data:
     	year_averages.append(pylab.mean(year))
@@ -373,12 +381,12 @@ if __name__ == '__main__':
     # Part B
     # TODO: replace this line with your code
     cities_avg = gen_cities_avg(c, CITIES, [i for i in range (1961, 2010)])
-    #evaluate_models_on_training(pylab.array(cities_avg), pylab.array(day_data), [1])
-
-
+    #evaluate_models_on_training(pylab.array(years), pylab.array(cities_avg), [1])
 
     # Part C
     # TODO: replace this line with your code
+     cities_moving_avg = moving_average(cities_avg, 5)
+    #evaluate_models_on_training(pylab.array(years), pylab.array(cities_moving_avg), [1])
 
     # Part D.2
     # TODO: replace this line with your code

@@ -103,18 +103,18 @@ class TestPS5(unittest.TestCase):
 			good_enough = math.isclose(correct[index], result[index])
 			self.assertTrue(good_enough, "City averages do not match expected results")
 
-	# def test_moving_avg(self):
-	# 	y = [1, 2, 3, 4, 5, 6, 7]
-	# 	window_length = 3
-	# 	correct = pylab.array([1, 1.5, 2, 3, 4, 5, 6])
-	# 	result = ps5.moving_average(y, window_length)
-	# 	self.assertListEqual(list(result), list(correct), "Moving average values incorrect")
+	def test_moving_avg(self):
+		y = [1, 2, 3, 4, 5, 6, 7]
+		window_length = 3
+		correct = pylab.array([1, 1.5, 2, 3, 4, 5, 6])
+		result = ps5.moving_average(y, window_length)
+		self.assertListEqual(list(result), list(correct), "Moving average values incorrect")
 
-	# 	y = [-1.5, 1.5, -3.0, 3.0, -4.5, 4.5]
-	# 	window_length = 2
-	# 	correct = [-1.5, 0, -.75, 0, -.75, 0]
-	# 	result = ps5.moving_average(y, window_length)
-	# 	self.assertListEqual(list(result), list(correct), "Moving average values incorrect")
+		y = [-1.5, 1.5, -3.0, 3.0, -4.5, 4.5]
+		window_length = 2
+		correct = [-1.5, 0, -.75, 0, -.75, 0]
+		result = ps5.moving_average(y, window_length)
+		self.assertListEqual(list(result), list(correct), "Moving average values incorrect")
 
 	# def test_rmse(self):
 	# 	y = [1, 2, 3, 4, 5, 6, 7, 8, 9]
