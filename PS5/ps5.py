@@ -95,7 +95,7 @@ class Climate(object):
                     temperatures.append(self.rawdata[city][year][month][day])
         return pylab.array(temperatures)
 
-    def get_daily_temp(self, city, month, day, year):
+    def get_d_info(self, city, month, day, year):
         """
         Get the daily temperature for the given city and time (year + date).
 
@@ -306,6 +306,9 @@ def rmse(y, estimated):
         a float for the root mean square error term
     """
     # TODO
+    mse = (estimated-y)@(estimated-y)
+    mean = mse/len(y)
+    return mean**0.5
     pass
 
 def gen_std_devs(climate, multi_cities, years):
@@ -324,6 +327,30 @@ def gen_std_devs(climate, multi_cities, years):
         city temperatures for the given cities in a given year.
     """
     # TODO
+    stds = []
+    for year in years:
+        d365_info = pylab.zeros(365)
+        d366_info = pylab.zeros(366)
+        
+        for city in multi_cities:
+            if len(climate.get_yearly_temp(city, year)) == 365:
+                d365_info += climate.get_yearly_temp(city, year)
+            else:
+                d366_info += climate.get_yearly_temp(city, year)
+        if pylab.sum(d365_info) > pylab.sum(d366_info):
+            d_info = d365_info
+        else:
+            d_info = d366_info
+
+        d_info = d_info/len(multi_cities)
+        mean = pylab.mean(d_info)
+        
+        variance = 0
+        for value in d_info:
+            variance += (value - mean)*(value - mean)
+        stds.append(pylab.sqrt(variance/len(d_info)))
+    return pylab.array(stds)
+
     pass
 
 def evaluate_models_on_testing(x, y, models):
@@ -351,6 +378,14 @@ def evaluate_models_on_testing(x, y, models):
         None
     """
     # TODO
+    for model in models:
+    	predictor = pylab.poly1d(model)
+    	predictions = predictor(x)
+    	pylab.scatter(x, y, color = 'b')
+    	pylab.plot(x, predictions, 'r')
+    	pylab.title("Degree: "+str(len(model)-1)+ ", $RMSE$ : " + str(rmse(y, predictions)))
+
+    	pylab.show()
     pass
 
 if __name__ == '__main__':
@@ -366,7 +401,7 @@ if __name__ == '__main__':
 
     for i in range(1961,2010):
     	years.append(i)
-    	day_data.append(c.get_daily_temp("NEW YORK", 1, 10, i))
+    	day_data.append(c.get_d_info("NEW YORK", 1, 10, i))
     	year_data.append(c.get_yearly_temp("NEW YORK", i))
 
    	## Problem 4:I
@@ -385,11 +420,25 @@ if __name__ == '__main__':
 
     # Part C
     # TODO: replace this line with your code
-     cities_moving_avg = moving_average(cities_avg, 5)
-    #evaluate_models_on_training(pylab.array(years), pylab.array(cities_moving_avg), [1])
+    cities_moving_avg = moving_average(cities_avg, 5)
+    #evaluate_models_on_training(pylab.array(years), (cities_moving_avg), [1])
 
     # Part D.2
     # TODO: replace this line with your code
+    fit_1 = pylab.polyfit(pylab.array(years), cities_moving_avg, 1)
+    fit_2 = pylab.polyfit(pylab.array(years), cities_moving_avg, 2)
+    fit_20 = pylab.polyfit(pylab.array(years), cities_moving_avg, 20)
+
+    #evaluate_models_on_training(pylab.array(years), cities_moving_avg, [1,2, 20])
+
+    test_years = [i for i in range (2010, 2016)]
+    test_cities_avg = gen_cities_avg(c, CITIES, [i for i in range (2010, 2016)])
+
+    #evaluate_models_on_testing(pylab.array(test_years), test_cities_avg, [fit_1, fit_2, fit_20])
 
     # Part E
     # TODO: replace this line with your code
+
+    cities_stds = gen_std_devs(c, CITIES, [i for i in range (1961, 2010)])
+    cities_stds_movavg = moving_average(cities_stds, 5)
+    evaluate_models_on_training(pylab.array(years), cities_stds_movavg, [1])
