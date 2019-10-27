@@ -405,40 +405,37 @@ if __name__ == '__main__':
     	year_data.append(c.get_yearly_temp("NEW YORK", i))
 
    	## Problem 4:I
-    #evaluate_models_on_training(pylab.array(years), pylab.array(day_data), [1,2,3,4])
+    evaluate_models_on_training(pylab.array(years), pylab.array(day_data), [1,2,3,4])
 	
 	## Problem 4:II
     year_averages = [] 
     for year in year_data:
     	year_averages.append(pylab.mean(year))
-    #evaluate_models_on_training(pylab.array(years), pylab.array(year_averages), [1,2,3,4])
+    evaluate_models_on_training(pylab.array(years), pylab.array(year_averages), [1,2,3,4])
 
     # Part B
     # TODO: replace this line with your code
     cities_avg = gen_cities_avg(c, CITIES, [i for i in range (1961, 2010)])
-    #evaluate_models_on_training(pylab.array(years), pylab.array(cities_avg), [1])
+    evaluate_models_on_training(pylab.array(years), pylab.array(cities_avg), [1])
 
     # Part C
     # TODO: replace this line with your code
     cities_moving_avg = moving_average(cities_avg, 5)
-    #evaluate_models_on_training(pylab.array(years), (cities_moving_avg), [1])
+    evaluate_models_on_training(pylab.array(years), (cities_moving_avg), [1])
 
     # Part D.2
     # TODO: replace this line with your code
     fit_1 = pylab.polyfit(pylab.array(years), cities_moving_avg, 1)
     fit_2 = pylab.polyfit(pylab.array(years), cities_moving_avg, 2)
     fit_20 = pylab.polyfit(pylab.array(years), cities_moving_avg, 20)
-
     #evaluate_models_on_training(pylab.array(years), cities_moving_avg, [1,2, 20])
 
     test_years = [i for i in range (2010, 2016)]
     test_cities_avg = gen_cities_avg(c, CITIES, [i for i in range (2010, 2016)])
-
     #evaluate_models_on_testing(pylab.array(test_years), test_cities_avg, [fit_1, fit_2, fit_20])
 
     # Part E
     # TODO: replace this line with your code
-
     cities_stds = gen_std_devs(c, CITIES, [i for i in range (1961, 2010)])
     cities_stds_movavg = moving_average(cities_stds, 5)
     evaluate_models_on_training(pylab.array(years), cities_stds_movavg, [1])
