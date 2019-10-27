@@ -255,6 +255,14 @@ def gen_cities_avg(climate, multi_cities, years):
         cities for a given year.
     """
     # TODO
+    avg_year_data = []
+    for year in years: 
+    	year_info = []
+    	for city in multi_cities:
+    		year_info.append(pylab.mean(climate.get_yearly_temp(city, year)))
+    	avg_year_data.append(sum(year_info)/len(year_info))
+
+    return pylab.array(avg_year_data)
     pass
 
 def moving_average(y, window_length):
@@ -272,6 +280,7 @@ def moving_average(y, window_length):
         y-coordinates of the N sample points
     """
     # TODO
+
     pass
 
 def rmse(y, estimated):
@@ -363,6 +372,10 @@ if __name__ == '__main__':
 
     # Part B
     # TODO: replace this line with your code
+    cities_avg = gen_cities_avg(c, CITIES, [i for i in range (1961, 2010)])
+    #evaluate_models_on_training(pylab.array(cities_avg), pylab.array(day_data), [1])
+
+
 
     # Part C
     # TODO: replace this line with your code

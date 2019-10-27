@@ -72,36 +72,36 @@ class TestPS5(unittest.TestCase):
 		self.assertIsInstance(r_sq, float, "r_squared should return a float")
 		self.assertEquals(r_sq, 1.0)
 
-	# def test_gen_cities_avg(self):
-	# 	# test for just one city
-	# 	climate = ps5.Climate('data.csv')
-	# 	test_years = pylab.array(ps5.TESTING_INTERVAL)
-	# 	result = ps5.gen_cities_avg(climate, ['SEATTLE'], test_years)
-	# 	correct = [11.514383561643836,10.586849315068493,11.28319672,12.10643836,12.82917808,13.13178082]
-	# 	self.assertTrue(len(correct) == len(result), "Expected length %s, was length %s" % (len(correct), len(result)))
+	def test_gen_cities_avg(self):
+		# test for just one city
+		climate = ps5.Climate('data.csv')
+		test_years = pylab.array(ps5.TESTING_INTERVAL)
+		result = ps5.gen_cities_avg(climate, ['SEATTLE'], test_years)
+		correct = [11.514383561643836,10.586849315068493,11.28319672,12.10643836,12.82917808,13.13178082]
+		self.assertTrue(len(correct) == len(result), "Expected length %s, was length %s" % (len(correct), len(result)))
 
-	# 	for index in range(len(correct)):
-	# 		good_enough = math.isclose(correct[index], result[index])
-	# 		self.assertTrue(good_enough, "City averages do not match expected results")
+		for index in range(len(correct)):
+			good_enough = math.isclose(correct[index], result[index])
+			self.assertTrue(good_enough, "City averages do not match expected results")
 
-	# 	# multiple cities
-	# 	result = ps5.gen_cities_avg(climate, ps5.CITIES, test_years)
-	# 	correct = [16.75950424, 16.85749511,17.56180068,16.65717547,16.84499022,17.54460535]
-	# 	self.assertTrue(len(correct) == len(result), "Expected length %s, was length %s" % (len(correct), len(result)))
+		# multiple cities
+		result = ps5.gen_cities_avg(climate, ps5.CITIES, test_years)
+		correct = [16.75950424, 16.85749511,17.56180068,16.65717547,16.84499022,17.54460535]
+		self.assertTrue(len(correct) == len(result), "Expected length %s, was length %s" % (len(correct), len(result)))
 
-	# 	for index in range(len(correct)):
-	# 		good_enough = math.isclose(correct[index], result[index])
-	# 		self.assertTrue(good_enough, "City averages do not match expected results")
+		for index in range(len(correct)):
+			good_enough = math.isclose(correct[index], result[index])
+			self.assertTrue(good_enough, "City averages do not match expected results")
 
-	# 	# years range
-	# 	# multiple cities
-	# 	result = ps5.gen_cities_avg(climate, ['TAMPA', 'DALLAS'], test_years)
-	# 	correct = [20.8040411,22.03910959,22.27206284,21.31136986,20.88123288,22.07794521]
-	# 	self.assertTrue(len(correct) == len(result), "Expected length %s, was length %s" % (len(correct), len(result)))
+		# years range
+		# multiple cities
+		result = ps5.gen_cities_avg(climate, ['TAMPA', 'DALLAS'], test_years)
+		correct = [20.8040411,22.03910959,22.27206284,21.31136986,20.88123288,22.07794521]
+		self.assertTrue(len(correct) == len(result), "Expected length %s, was length %s" % (len(correct), len(result)))
 
-	# 	for index in range(len(correct)):
-	# 		good_enough = math.isclose(correct[index], result[index])
-	# 		self.assertTrue(good_enough, "City averages do not match expected results")
+		for index in range(len(correct)):
+			good_enough = math.isclose(correct[index], result[index])
+			self.assertTrue(good_enough, "City averages do not match expected results")
 
 	# def test_moving_avg(self):
 	# 	y = [1, 2, 3, 4, 5, 6, 7]
